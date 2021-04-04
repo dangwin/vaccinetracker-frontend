@@ -38,3 +38,26 @@ class Patient {
 
 }
 
+function getPatients() {
+    fetch("http://localhost:3000/patients")
+    .then(resp => resp.json())
+    .then(data => {
+        renderPatientHtml(data)
+        addPatientClickListeners()
+        addEventsClickListeners()
+    })
+}
+
+function createPatient() {
+    const Patient = {
+        name: document.getElementById('name').value,
+        age: document.getElementById('age').value,
+        gender: document.getElementById('gender').value,
+        vaccine: document.getElementById('vaccine').vaccine
+    }
+
+    fetch("http://localhost:3000/patients", {
+        method
+    }
+
+}

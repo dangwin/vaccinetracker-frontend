@@ -1,0 +1,37 @@
+header {
+    background-color: #ff0000;
+    margin: 0 auto;
+    height: 50px;
+  }
+
+  h1 {
+    padding: 15px;
+    margin: 0;
+    font-family: arial;
+    color: rgb(0, 0, 0);
+  }
+
+  h3{
+
+    padding: 15px;
+    margin: 0;
+    font-family: arial;
+
+  }
+
+  form input, textarea {
+    background-color: #000000;
+    font-size: 1.00em;
+
+  }
+
+  body {
+    margin: 100;
+    padding: 20;
+    font-family: Helvetica;
+  }
+
+  label {
+    color: red; 
+  }
+  

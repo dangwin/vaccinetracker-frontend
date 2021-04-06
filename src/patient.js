@@ -1,14 +1,3 @@
-const patientFormFields = `
-    <label><strong>Name: </strong></label><br/>
-    <input type="text" id="name"><br/>
-    <input type="hidden" id="patientId">
-    <label><strong>Age:   </strong></label><br/>
-    <input type="integer" id="age"><br/>  
-    <label>Gender:   </strong></label><br/>
-    <input type="text" id="gender"><br/>  
-    <label><strong>Vaccine: </strong></label><br/>
-    <input type="text" id="vaccine"><br/>`
-
 class Patient {
     constructor(data){
         this.id = data.id
@@ -30,7 +19,7 @@ class Patient {
     static editPatientForm(){
         let editPatientForm = document.getElementById('patient-form')
         editPatientForm.innerHTML = `
-        <form onsubmit="updateDog(); return false;">` + 
+        <form onsubmit="updatePatient(); return false;">` + 
         patientFormFields + 
         `<input type="submit" value="Edit Patient">
         </form> <br/>`
@@ -39,7 +28,7 @@ class Patient {
 }
 
 function getPatients() {
-    fetch("http://localhost:3000/patients")
+    fetch(`http://localhost:3000/patients`)
     .then(resp => resp.json())
     .then(data => {
         renderPatientHtml(data)
@@ -49,15 +38,49 @@ function getPatients() {
 }
 
 function createPatient() {
-    const Patient = {
+    const patient = {
         name: document.getElementById('name').value,
         age: document.getElementById('age').value,
         gender: document.getElementById('gender').value,
-        vaccine: document.getElementById('vaccine').vaccine
+        vaccine: document.getElementById('vaccine').value
     }
 
-    fetch("http://localhost:3000/patients", {
-        method
-    }
-
+    fetch(`http://localhost:3000/patients`, {
+        method: 'POST',
+        body: JSON.stringify(patient),
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
+    })
+    .then(resp => resp.json() )
+    .then(patient => {
+        getPatients()
+        Patient.newPatientForm
+    });
 }
+
+ function updatePatient() {
+     let patientId = this.event.target.patientId.value
+
+     const patient = {
+        name: document.getElementById('name').value,
+        age: document.getElementById('age').value,
+        gender: document.getElementById('gender').value,
+        vaccine: document.getElementById('vaccine').value
+     }
+     fetch(`http://localhost:3000/patients/${patientId}`, {
+        method: 'PATCH',
+        body: JSON.stringify(patient),
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
+    })
+    .then(resp => resp.json() )
+    .then(patient => {
+        getPatients()
+        Patient.newPatientForm
+    });
+}
+
+    function editPatient() {
+        let patientId = this.parentElement.getAttribute('patient-data-id')
+
+    }
+
+

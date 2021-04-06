@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Hospital Vaccine Tracker</title>
+</head>
+<body>
+    <h1>Vaccine Tracker</h1>
+    <h3>Add a Patient!</h3>
+
+    <div class="card" id="patient-form">
+        <label><strong>Name: </strong></label><br/>
+        <input type="text" id="name"><br/>
+        <input type="hidden" id="patientId">
+        <label><strong>Age:   </strong></label><br/>
+        <input type="integer" id="age"><br/>  
+        <label><strong>Gender:   </strong></label><br/>
+        <input type="text" id="gender"><br/>  
+        <label><strong>Vaccine: </strong></label><br/>
+        <input type="text" id="vaccine"><br/> </div> 
+        <br/>
+        <button class= "submit-button" style= "background-color:green; color:white" >Add Patient</button> 
+
+
+
+    <script src="src/index.js"></script>
+    <script src="src/patient.js"></script>
+
+</body>
+</html>

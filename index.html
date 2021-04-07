@@ -9,7 +9,7 @@
     <h1>Vaccine Tracker</h1>
     <h3>Add a Patient!</h3>
 
-    <div class="card" id="patient-form">
+    <form class="card" onsubmit="createPatient(); return false" id="patient-form">
         <label><strong>Name: </strong></label><br/>
         <input type="text" id="name"><br/>
         <input type="hidden" id="patientId">
@@ -18,14 +18,20 @@
         <label><strong>Gender:   </strong></label><br/>
         <input type="text" id="gender"><br/>  
         <label><strong>Vaccine: </strong></label><br/>
-        <input type="text" id="vaccine"><br/> </div> 
+        <input type="text" id="vaccine"><br/> 
         <br/>
-        <button class= "submit-button" style= "background-color:green; color:white" >Add Patient</button> 
+        <button type= "submit" class= "submit-button" style= "background-color:green; color:white" >Add Patient</button> </form> 
+        <br/>
+        <br/>
+
+        <!-- <table><tr><th>ID</th><th>Name</th><th>Gender</th><th>Age</th><th>Vaccine</th></tr> -->
+        <table id="patients"></table>
 
 
 
-    <script src="src/index.js"></script>
     <script src="src/patient.js"></script>
+    <script src="src/index.js"></script>
+    
 
 </body>
 </html>

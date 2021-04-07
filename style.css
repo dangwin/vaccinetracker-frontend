@@ -19,11 +19,11 @@ header {
 
   }
 
-  form input, textarea {
-    background-color: #000000;
-    font-size: 1.00em;
 
+  table, td{
+    border: 1px red;
   }
+
 
   body {
     margin: 100;

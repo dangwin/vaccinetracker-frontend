@@ -1,1 +1,1 @@
-console.log("I'm inside index")
+window.addEventListener("DOMContentLoaded", getPatients)

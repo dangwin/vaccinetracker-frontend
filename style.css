@@ -1,14 +1,8 @@
-header {
-    background-color: #ff0000;
-    margin: 0 auto;
-    height: 50px;
-  }
-
-  h1 {
+  h2 {
     padding: 15px;
     margin: 0;
     font-family: arial;
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
   }
 
   h3{
@@ -17,11 +11,6 @@ header {
     margin: 0;
     font-family: arial;
 
-  }
-
-
-  table, td{
-    border: 1px red;
   }
 
 
@@ -35,3 +24,32 @@ header {
     color: red; 
   }
   
+  .left {
+      float: left;
+      width: 500px;
+  }
+
+  .add-side-effect {
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color:rgb(81, 81, 227);
+    color: white;
+  }
+
+  .edit-patient-button {
+    margin-right: 10px;
+    background-color: yellowgreen;
+    color: white;
+  }
+
+  .delete-patient-button {
+    background-color: red;
+    color: white;
+  }
+
+#patients {
+  border-collapse: 1px solid black;
+  width: 100%;
+  margin-left: 10px;
+} 
+

@@ -9,33 +9,23 @@ class Patient {
 
     static newPatientForm(){
         let newPatientFormDiv = document.getElementById('patient-form')
-        newPatientFormDiv.innerHTML = `
-        <form>` + 
-        `<input type="submit" value="Add a Patient"> 
-        </form> <br/>
-         `
          newPatientFormDiv.addEventListener("submit", function(e){
             console.log(e)
             e.preventDefault()
          })
     }
-    static editPatientForm(){
-        let editPatientForm = document.getElementById('patient-form')
-        editPatientForm.innerHTML = `
-        <form onsubmit="updatePatient(); return false;">` + 
-        `<input type="submit" value="Edit Patient">
-        </form> <br/>`
-        }
 
     render(el){
         el.innerHTML= `
         <tr>
-             <td> ${this.id}</td> 
              <td> ${this.name}</td> 
              <td> ${this.gender}</td>
              <td> ${this.age}</td> 
              <td> ${this.vaccine}</td>
-        </tr>`
+        </tr>
+        <button class="add-side-effect" patient-data-id="${this.id}">Add Side Effect</button> 
+        <button class="edit-patient-button" patient-data-id="${this.id}">Edit Info</button> 
+        <button class="delete-patient-button" patient-data-id="${this.id}">Delete Patient</button>`
     }
 
     static fromForm (){
@@ -56,13 +46,18 @@ function getPatients() {
     .then(data => {
         console.log(data)
         renderPatientHtml(data)
-        // addPatientClickListeners()
+        patientListeners
     })
 }
 
 function renderPatientHtml(data){
     const table = document.getElementById('patients')
-    table.innerHTML=""
+    table.innerHTML=`<tr>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Gender</th>
+                        <th>Vaccine</th>
+                    </tr>`
     data.forEach(function(patient){
         const p = new Patient(patient)
         const tr = document.createElement('tr')
@@ -82,8 +77,14 @@ function createPatient() {
     .then(resp => resp.json() )
     .then(patient => {
         getPatients()
+        resetForm()
+        patientListeners
         Patient.newPatientForm
     });
+}
+
+function resetForm(){
+    document.getElementById('patient-form').reset();
 }
 
  function updatePatient() {
@@ -123,10 +124,28 @@ function createPatient() {
         })
         .then(resp => resp.json())
         .then(json => {
-            let selectedPatient = document.querySelector(`.card[patient-data-id="${patientId}"]`)
+            let selectedPatient = document.querySelector(`.delete-patient-button=${patientId}`)
             selectedPatient.remove()
         })
     }
+
+    // function showMoreInfo () {
+    //     toggleHideDisplay(this.parentElement.querySelector('.view-full-info'))
+    // }
+
+    function patientListeners() {
+
+        document.querySelectorAll('.edit-patient-button').forEach(element => {
+            element.addEventListener("click", editPatient)
+            
+        })
+
+        document.querySelectorAll('.delete-patient-button').forEach(element => {
+            element.addEventListener("click", deletePatient)
+            
+        })
+    }
+
 
 
 

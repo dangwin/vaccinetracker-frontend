@@ -13,7 +13,26 @@ class Patient {
             console.log(e)
             e.preventDefault()
          })
+
     }
+
+    static editPatientForm() {
+        let newEditFormDiv = document.getElementById('patient-form')           
+            newEditFormDiv.innerHTML = `
+            <form onsubmit="updatePatient(); return false;">` +
+            `<label><strong>Name: </strong></label><br/>
+            <input type="text" id="name"><br/>
+            <input type="hidden" id="patientId">
+            <label><strong>Age:   </strong></label><br/>
+            <input type="integer" id="age"><br/>  
+            <label><strong>Gender:   </strong></label><br/>
+            <input type="text" id="gender"><br/>  
+            <label><strong>Vaccine: </strong></label><br/>
+            <input type="text" id="vaccine"><br/> 
+            <br/>
+            <button type= "submit" class= "submit-button" style= "background-color:green; color:white" >Edit Patient</button> </form>`
+     }
+
 
     render(el){
         el.innerHTML= `
@@ -46,7 +65,7 @@ function getPatients() {
     .then(data => {
         console.log(data)
         renderPatientHtml(data)
-        patientListeners
+        patientListeners()
     })
 }
 
@@ -78,8 +97,8 @@ function createPatient() {
     .then(patient => {
         getPatients()
         resetForm()
-        patientListeners
-        Patient.newPatientForm
+        patientListeners()
+        Patient.newPatientForm()
     });
 }
 
@@ -99,12 +118,13 @@ function resetForm(){
     .then(resp => resp.json() )
     .then(patient => {
         getPatients()
-        Patient.newPatientForm
+        resetForm()
+        Patient.newPatientForm()
     });
 }
 
-    function editPatient() {
-        let patientId = this.parentElement.getAttribute('patient-data-id')
+    function editPatient(e) {
+        let patientId = this.getAttribute('patient-data-id')
         fetch(`http://localhost:3000/patients/${patientId}`)
         .then(resp => resp.json())
         .then(data => {
@@ -116,6 +136,7 @@ function resetForm(){
             patientForm.querySelector('#vaccine').value = data.vaccine
     })
 }
+
 
     function deletePatient() {
         let patientId = this.parentElement.getAttribute('patient-data-id')
@@ -136,12 +157,12 @@ function resetForm(){
     function patientListeners() {
 
         document.querySelectorAll('.edit-patient-button').forEach(element => {
-            element.addEventListener("click", editPatient)
+            element.addEventListener("click", editPatient);
             
         })
 
         document.querySelectorAll('.delete-patient-button').forEach(element => {
-            element.addEventListener("click", deletePatient)
+            element.addEventListener("click", deletePatient);
             
         })
     }

@@ -7,33 +7,6 @@ class Patient {
         this.vaccine = data.vaccine
     }
 
-    static newPatientForm(){
-        let newPatientFormDiv = document.getElementById('patient-form')
-         newPatientFormDiv.addEventListener("submit", function(e){
-            console.log(e)
-            e.preventDefault()
-         })
-
-    }
-
-    static editPatientForm() {
-        let newEditFormDiv = document.getElementById('patient-form')           
-            newEditFormDiv.innerHTML = `
-            <form onsubmit="updatePatient(); return false;">` +
-            `<label><strong>Name: </strong></label><br/>
-            <input type="text" id="name"><br/>
-            <input type="hidden" id="patientId">
-            <label><strong>Age:   </strong></label><br/>
-            <input type="integer" id="age"><br/>  
-            <label><strong>Gender:   </strong></label><br/>
-            <input type="text" id="gender"><br/>  
-            <label><strong>Vaccine: </strong></label><br/>
-            <input type="text" id="vaccine"><br/> 
-            <br/>
-            <button type= "submit" class= "submit-button" style= "background-color:green; color:white" >Edit Patient</button> </form>`
-     }
-
-
     render(el){
         el.innerHTML= `
         <tr>
@@ -55,8 +28,6 @@ class Patient {
             vaccine: document.getElementById('vaccine').value
         })
     }
-    
-
 }
 
 function getPatients() {
@@ -67,6 +38,7 @@ function getPatients() {
         renderPatientHtml(data)
         patientListeners()
     })
+    
 }
 
 function renderPatientHtml(data){
@@ -98,7 +70,6 @@ function createPatient() {
         getPatients()
         resetForm()
         patientListeners()
-        Patient.newPatientForm()
     });
 }
 
@@ -106,10 +77,11 @@ function resetForm(){
     document.getElementById('patient-form').reset();
 }
 
- function updatePatient() {
-     let patientId = this.event.target.patientId.value
-     const patient = Patient.fromForm()
-
+ function updatePatient(e) {
+     global_test = e;
+    const patientForm = e.target;
+    let patientId = document.getElementById('patient-id').value;
+    const patient = Patient.fromForm()
      fetch(`http://localhost:3000/patients/${patientId}`, {
         method: 'PATCH',
         body: JSON.stringify({patient}),
@@ -119,7 +91,6 @@ function resetForm(){
     .then(patient => {
         getPatients()
         resetForm()
-        Patient.newPatientForm()
     });
 }
 
@@ -128,31 +99,28 @@ function resetForm(){
         fetch(`http://localhost:3000/patients/${patientId}`)
         .then(resp => resp.json())
         .then(data => {
-            Patient.editPatientForm()
             let patientForm = document.getElementById('patient-form')
             patientForm.querySelector('#name').value = data.name
             patientForm.querySelector('#age').value = data.age
             patientForm.querySelector('#gender').value = data.gender
             patientForm.querySelector('#vaccine').value = data.vaccine
+            patientForm.querySelector('#patient-id').value = patientId;
     })
+
 }
 
 
     function deletePatient() {
-        let patientId = this.parentElement.getAttribute('patient-data-id')
+        let patientId = this.getAttribute('patient-data-id')
         fetch(`http://localhost:3000/patients/${patientId}`, {
             method: `DELETE`
         })
         .then(resp => resp.json())
         .then(json => {
-            let selectedPatient = document.querySelector(`.delete-patient-button=${patientId}`)
+            let selectedPatient = document.getElementById('patient-id').value
             selectedPatient.remove()
         })
     }
-
-    // function showMoreInfo () {
-    //     toggleHideDisplay(this.parentElement.querySelector('.view-full-info'))
-    // }
 
     function patientListeners() {
 
@@ -163,7 +131,14 @@ function resetForm(){
 
         document.querySelectorAll('.delete-patient-button').forEach(element => {
             element.addEventListener("click", deletePatient);
-            
+        })
+
+        document.querySelectorAll('.edit-button').forEach(element => {
+            element.addEventListener("click", updatePatient);
+        })    
+        
+        document.querySelectorAll('.submit-button').forEach(element => {
+            element.addEventListener("click", createPatient);
         })
     }
 

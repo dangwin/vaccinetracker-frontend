@@ -17,7 +17,8 @@
         <br/>
     
 
-    <form class="card" onsubmit="createPatient(); return false" id="patient-form">
+    <form id="patient-form">
+        <input id="patient-id" type="hidden">
         <label><strong>Name: </strong></label><br/>
         <input type="text" id="name"><br/>
         <input type="hidden" id="patientId">
@@ -28,7 +29,9 @@
         <label><strong>Vaccine: </strong></label><br/>
         <input type="text" id="vaccine"><br/> 
         <br/>
-        <button type= "submit" class= "submit-button" style= "background-color:green; color:white" >Add Patient</button> </form> 
+        <button type= "submit" class= "submit-button" style= "background-color:green; color:white" >Add Patient</button>         
+        <button type= "submit" class= "edit-button" style= "background-color:green; color:white" >Edit Patient</button></form> 
+
         <br/>
         <br/>
 

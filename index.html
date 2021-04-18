@@ -9,7 +9,7 @@
 </head>
 <body>
 
-    <nav class="navbar navbar-dark bg-primary" style= "height: 50px">
+    <nav class="navbar navbar-dark bg-primary" style= "height: 100px">
         <h2 class="left">Vaccine Tracker</h2>
       </nav>
 
@@ -30,18 +30,46 @@
         <input type="text" id="vaccine"><br/> 
         <br/>
         <button type= "submit" class= "submit-button" style= "background-color:green; color:white" >Add Patient</button>         
-        <button type= "submit" class= "edit-button" style= "background-color:green; color:white" >Edit Patient</button></form> 
+        <button type= "submit" class= "edit-button" style= "background-color:green; color:white" >Update Patient</button></form> 
 
         <br/>
         <br/>
 
-       
+
+        <div class="form-popup" id="myForm">
+            <form class="form-container">
+              <h1>Add a Side Effect</h1>
+              <input type="text" placeholder="Please enter side effect">
+              <button type="submit" class="side-effect-button">Submit</button>
+              <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+            </form>
+          </div>
+
+
+          <script>
+            
+        </script>
+
         <table id="patients"></table>
+        
+        <br/>
+        <br/>
+   
 
+        <button class="show-side-effect-button" id="show-button">Show Side Effect</button> 
+        <br/>
+        <br/>
+
+        <table id="sideeffects">
+            <thead></thead>
+            <tbody>
+            </tbody>
+        </table>
 
 
     <script src="src/patient.js"></script>
     <script src="src/index.js"></script>
+    <script src="src/sideEffect.js"></script>
     
 
 </body>

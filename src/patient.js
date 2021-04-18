@@ -15,7 +15,7 @@ class Patient {
              <td> ${this.age}</td> 
              <td> ${this.vaccine}</td>
         </tr>
-        <button class="add-side-effect" patient-data-id="${this.id}">Add Side Effect</button> 
+        <button class="add-side-effect-button" patient_id="${this.id}" onclick="createSideFffect(${this.id})">Add Side Effect</button> 
         <button class="edit-patient-button" patient-data-id="${this.id}">Edit Info</button> 
         <button class="delete-patient-button" patient-data-id="${this.id}">Delete Patient</button>`
     }
@@ -78,8 +78,6 @@ function resetForm(){
 }
 
  function updatePatient(e) {
-     global_test = e;
-    const patientForm = e.target;
     let patientId = document.getElementById('patient-id').value;
     const patient = Patient.fromForm()
      fetch(`http://localhost:3000/patients/${patientId}`, {
@@ -120,29 +118,30 @@ function resetForm(){
             let selectedPatient = document.getElementById('patient-id').value
             selectedPatient.remove()
         })
+        resets();
     }
 
     function patientListeners() {
 
-        document.querySelectorAll('.edit-patient-button').forEach(element => {
-            element.addEventListener("click", editPatient);
+        document.querySelectorAll('.edit-patient-button').forEach(e => {
+            e.addEventListener("click", editPatient);
             
         })
 
-        document.querySelectorAll('.delete-patient-button').forEach(element => {
-            element.addEventListener("click", deletePatient);
+        document.querySelectorAll('.delete-patient-button').forEach(e => {
+            e.addEventListener("click", deletePatient);
         })
 
-        document.querySelectorAll('.edit-button').forEach(element => {
-            element.addEventListener("click", updatePatient);
+        document.querySelectorAll('.edit-button').forEach(e => {
+            e.addEventListener("click", updatePatient);
         })    
         
-        document.querySelectorAll('.submit-button').forEach(element => {
-            element.addEventListener("click", createPatient);
+        document.querySelectorAll('.submit-button').forEach(e => {
+            e.addEventListener("click", createPatient);
         })
     }
 
-
-
-
+    function resets(){
+        location.reload();
+    }
 

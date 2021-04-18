@@ -1,1 +1,4 @@
-window.addEventListener("DOMContentLoaded", getPatients)
+document.addEventListener("DOMContentLoaded", () => {
+    getPatients();
+    sideEffectListeners();
+ })

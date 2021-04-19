@@ -129,10 +129,16 @@
 #sideeffects {
   margin: 0;
   position: absolute;
-  top: 55%;
+  top: 65%;
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   border: 4px solid black;
-  border-spacing: 15px 50px;
+  padding: 15px 50px;
+  border-collapse: collapse
+}
+
+#side-effect-edit {
+  margin-left: 10px;
+
 }

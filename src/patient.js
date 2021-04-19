@@ -7,17 +7,20 @@ class Patient {
         this.vaccine = data.vaccine
     }
 
-    render(el){
-        el.innerHTML= `
-        <tr>
+    render() {
+        const tr = document.createElement('tr');
+        tr.setAttribute('patient-id', this.id);
+        tr.innerHTML = 
+        `
              <td> ${this.name}</td> 
              <td> ${this.gender}</td>
              <td> ${this.age}</td> 
              <td> ${this.vaccine}</td>
-        </tr>
-        <button class="add-side-effect-button" patient_id="${this.id}" onclick="createSideFffect(${this.id})">Add Side Effect</button> 
-        <button class="edit-patient-button" patient-data-id="${this.id}">Edit Info</button> 
-        <button class="delete-patient-button" patient-data-id="${this.id}">Delete Patient</button>`
+             <button class="add-side-effect-button" patient_id="${this.id}" onclick="createSideEffect(null, null, ${this.id})">Add Side Effect</button> 
+             <button class="edit-patient-button" patient-data-id="${this.id}">Edit Info</button> 
+             <button class="delete-patient-button" patient-data-id="${this.id}">Delete Patient</button>
+        `;
+        return tr;
     }
 
     static fromForm (){
@@ -43,17 +46,12 @@ function getPatients() {
 
 function renderPatientHtml(data){
     const table = document.getElementById('patients')
-    table.innerHTML=`<tr>
-                        <th>Name</th>
-                        <th>Age</th>
-                        <th>Gender</th>
-                        <th>Vaccine</th>
-                    </tr>`
+    // table.innerHTML=`
     data.forEach(function(patient){
         const p = new Patient(patient)
-        const tr = document.createElement('tr')
-        p.render(tr)
-        table.append(tr)
+        // const tr = document.createElement('tr')
+        const tbody = table.querySelector('tbody');
+        tbody.insertAdjacentElement('afterbegin', p.render());
     })
 }
 
@@ -110,17 +108,17 @@ function resetForm(){
 
     function deletePatient() {
         let patientId = this.getAttribute('patient-data-id')
+        if (confirm('Are you sure you want to delete?')){
         fetch(`http://localhost:3000/patients/${patientId}`, {
             method: `DELETE`
         })
         .then(resp => resp.json())
         .then(json => {
-            let selectedPatient = document.getElementById('patient-id').value
-            selectedPatient.remove()
-        })
-        resets();
+            let selectedPatient = document.querySelector(`tr[patient-id="${patientId}"]`);
+            selectedPatient.remove();
+        });
     }
-
+}
     function patientListeners() {
 
         document.querySelectorAll('.edit-patient-button').forEach(e => {
@@ -142,6 +140,6 @@ function resetForm(){
     }
 
     function resets(){
-        location.reload();
+       location.reload()
     }
 

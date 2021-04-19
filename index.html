@@ -38,7 +38,7 @@
 
         <div class="form-popup" id="myForm">
             <form class="form-container">
-              <h1>Add a Side Effect</h1>
+              <h1>Add or Edit a Side Effect</h1>
               <input type="text" placeholder="Please enter side effect">
               <button type="submit" class="side-effect-button">Submit</button>
               <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
@@ -50,18 +50,33 @@
             
         </script>
 
-        <table id="patients"></table>
-        
+        <table id="patients">
+          <thead>
+            <tr>
+                              <th>Name</th>
+                              <th>Age</th>
+                              <th>Gender</th>
+                              <th>Vaccine</th>
+            </tr>
+                          </thead>
+                          <tbody></tbody>
+                          </table>
         <br/>
         <br/>
-   
+        <br/>
+        <br/>
+
+
 
         <button class="show-side-effect-button" id="show-button">Show Side Effect</button> 
         <br/>
         <br/>
 
-        <table id="sideeffects">
-            <thead></thead>
+        <table id="sideeffects" style="display: none">
+            <thead>
+               <th><u>Name</u></th>
+               <th><u>Side Effect</u></th>
+            </thead>
             <tbody>
             </tbody>
         </table>
